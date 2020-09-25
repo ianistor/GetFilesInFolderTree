@@ -1,0 +1,42 @@
+import os
+
+
+#Paths
+
+"""
+list path = where you want the list to be created
+network_path = where you want it to search
+"""
+
+
+list_path = "D:\\list_files.txt"
+network_path = 
+
+
+
+
+print ("------Starting------")
+
+def getListOfFiles(dirName):
+    listOfFile = os.listdir(dirName)
+    allFiles = list()
+    for i in listOfFile:
+        fullPath = os.path.join(dirName, i)
+        # If entry is a directory then get the list of files in this directory
+        if os.path.isdir(fullPath):
+            allFiles = allFiles + getListOfFiles(fullPath)
+        else:
+            allFiles.append(i)
+            print (i)
+
+    with open(list_path, "w+") as file:
+        file.write("\nBelow there's a list of all your files \n")
+        for i in allFiles:
+            file.write(i + "\n")
+
+    return allFiles
+
+
+
+getListOfFiles(network_path)
+print ("------Done------")
